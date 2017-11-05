@@ -18,7 +18,7 @@ class Relay implements \Weave\Middleware\MiddlewareAdaptorInterface
 	 *
 	 * @var callable
 	 */
-	protected $_resolver;
+	protected $resolver;
 
 	/**
 	 * Set a callable on the Adaptor that can be used to resolve strings to class instances.
@@ -29,7 +29,7 @@ class Relay implements \Weave\Middleware\MiddlewareAdaptorInterface
 	 */
 	public function setResolver(callable $resolver)
 	{
-		$this->_resolver = $resolver;
+		$this->resolver = $resolver;
 	}
 
 	/**
@@ -53,7 +53,7 @@ class Relay implements \Weave\Middleware\MiddlewareAdaptorInterface
 	 */
 	public function executePipeline($pipeline, Request $request, Response $response = null)
 	{
-		$relayBuilder = new \Relay\RelayBuilder($this->_resolver);
+		$relayBuilder = new \Relay\RelayBuilder($this->resolver);
 		$relay = $relayBuilder->newInstance($pipeline);
 		return $relay($request, $response);
 	}
